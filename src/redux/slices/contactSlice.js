@@ -6,6 +6,7 @@ const BASE_URL = import.meta.env.VITE_API_URL;
 const initialState = {
   contacts: [],
   loading: false,
+  pagination: {},
   error: null,
 };
 
@@ -15,7 +16,7 @@ export const fetchContacts = createAsyncThunk(
   "contacts/fetchContacts",
   async ({ search = "", page = 1, limit = 10 }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`${BASE_URL}/contacts`, {
+      const { data } = await axios.get(`${BASE_URL}/contact`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -48,6 +49,10 @@ const contactSlice = createSlice({
       .addCase(fetchContacts.fulfilled, (state, action) => {
         state.loading = false;
         state.contacts = action.payload.data;
+        state.pagination = {
+          currentPage: action.payload.data.page,
+          totalPage: action.payload.data.totalPages,
+        };
       })
       .addCase(fetchContacts.rejected, (state, action) => {
         state.loading = false;

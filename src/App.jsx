@@ -5,7 +5,6 @@ import LoginComponent from "./components/LoginComponent";
 import ProtectedRouteComponent from "./components/ProtectedRouteComponent";
 import DashboardComponent from "./components/DashboardComponent";
 import BlogContainer from "./containers/BlogContainer";
-import BlogInputComponent from "./components/BlogInputComponent";
 import PortfolioContainer from "./containers/PortfolioContainer";
 import ProfileComponent from "./components/ProfileComponent";
 import TestimonialContainer from "./containers/TestimonialContainer";

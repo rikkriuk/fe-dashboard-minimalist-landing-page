@@ -4,7 +4,6 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { fetchContacts } from "../redux/slices/contactSlice";
 import LoadingComponent from "./LoadingComponent";
-import { showSuccessAlert } from "../utils/alert";
 
 const ContactListComponent = () => {
   const { contacts, pagination, error, loading } = useSelector((state) => state.contact);
@@ -28,6 +27,8 @@ const ContactListComponent = () => {
       setPage(currentPage + 1);
     }
   };
+
+  if (loading) return <LoadingComponent />
 
   return (
     <section className="space-y-5 px-20 mt-10">
@@ -66,12 +67,12 @@ const ContactListComponent = () => {
                <table className="w-full text-dark border-neutral-200">
                   <thead className="text-secondary-dark text-[0.95rem] font-semibold">
                      <tr>
-                     <th className="pb-3 text-gray-600 text-center">ID</th>
+                     <th className="pb-3 text-gray-600 text-center">NO</th>
                      <th className="pb-3 text-gray-600 text-center">NAME</th>
+                     <th className="pb-3 text-gray-600 text-center">EMAIL</th>
+                     <th className="pb-3 text-gray-600 text-center">WEBSITE</th>
                      <th className="pb-3 text-gray-600 text-center">MESSAGE</th>
-                     <th className="pb-3 text-gray-600 text-center">PHONE</th>
                      <th className="pb-3 text-gray-600 text-center">CREATED AT</th>
-                     <th className="pb-3 text-gray-600 text-center">ACTION</th>
                      </tr>
                   </thead>
                   <tbody>
@@ -80,22 +81,15 @@ const ContactListComponent = () => {
                         <td className="py-3">{index + 1}</td>
                         <td className="py-3">{contact?.name}</td>
                         <td className="py-3">{contact?.email}</td>
-                        <td className="py-3">{contact?.phone}</td>
-                        <td className="py-3">{new Date(contact?.created_at).toLocaleString("id-ID", {
+                        <td className="py-3">{contact?.website}</td>
+                        <td className="py-3">{contact?.message}</td>
+                        <td className="py-3">{new Date(contact?.create_at).toLocaleString("id-ID", {
                            day: "2-digit",
                            month: "2-digit",
                            year: "numeric",
                            hour: "2-digit",
                            minute: "2-digit",
                         })}</td>
-                        <td className="py-3 flex justify-center flex-wrap gap-1">
-                           <Link to={`edit/${contact?.id}`} className="px-4 py-2 font-semibold text-white rounded-md bg-green-500 hover:bg-green-600 focus:outline-none">
-                           Edit
-                           </Link>
-                           <button onClick={() => handleDelete(contact?.id)} className="px-4 py-2 ml-2 font-semibold text-white rounded-md bg-red-500 hover:bg-red-600 focus:outline-none">
-                           Delete
-                           </button>
-                        </td>
                      </tr>
                      ))}
                   </tbody>

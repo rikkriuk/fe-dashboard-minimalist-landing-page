@@ -4,7 +4,7 @@ import userReducer from "./slices/userSlice";
 import blogReducer from "./slices/blogSlice";
 import portfolioReducer from "./slices/portfolioSlice";
 import testimonialReducer from "./slices/testimonialSlice";
-import contactReducer from "./slices/testimonialSlice";
+import contactReducer from "./slices/contactSlice";
 
 export const store = configureStore({
   reducer: {
